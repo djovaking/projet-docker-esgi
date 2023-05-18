@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  postgres:
+    image: djovaking/postgres-custom
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: mydatabase
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+  adminder:
+    image: djovaking/adminer-custom
+    restart: always
+    ports:
+      - 8080:8080

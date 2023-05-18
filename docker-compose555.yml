@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  adminer:
+    image: djovaking/adminer-custom
+    container_name: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+
+  php:
+    image: djovaking/php-custom
+    container_name: php
+    restart: always
+    volumes:
+      - ./php:/var/www/html/
+      - ./php/conf.inc.php:/var/www/html/conf.inc.php
+    ports:
+      - "8000:80"
+
+  postgres:
+    image: djovaking/php-custom
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: esgi
+      POSTGRES_USER: esgi
+      POSTGRES_PASSWORD: Test123
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+
+  composer:
+    image: djovaking/composer-custom
+    container_name: composer
+    restart: always
+    volumes:
+      - ./php:/app
+    working_dir: /app
